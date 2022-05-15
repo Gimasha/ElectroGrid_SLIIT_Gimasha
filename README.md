@@ -3,5 +3,5 @@ Create Payment /
 Delete Payment /
 View Payments /
 Update Bill /
-Login Customert
+Login Customer
  
