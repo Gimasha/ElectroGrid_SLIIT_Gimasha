@@ -97,9 +97,11 @@ public class BillService {
             connection.close();
 
             if (executeUpdate < 1){
-                output = "Payment failed";
+                output = "{\"status\":\"error\", \"data\": \"Payment failed !\"}";
+
             }else {
-                output = "Payment successful";
+                output = "{\"status\":\"error\", \"data\": \"Payment successful!\"}";
+                
             }
 
         } catch (SQLException e) {

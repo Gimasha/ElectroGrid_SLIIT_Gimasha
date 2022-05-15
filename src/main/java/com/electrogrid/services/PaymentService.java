@@ -22,12 +22,12 @@ public class PaymentService {
             Statement statementCustomer = connection.createStatement();
             ResultSet resultSetCustomer = statementCustomer.executeQuery(queryBill);
             if (!resultSetCustomer.next()){
-                return "Invalid Bill ID !";
+                return "{\"status\":\"error\", \"data\": \"Invalid Bill ID !\"}";
             }
             resultSetCustomer = statementCustomer.executeQuery(queryBill);
             while (resultSetCustomer.next()){
                 if (resultSetCustomer.getString("payment_id") != null){
-                    return "The bill has already been paid";
+                    return "{\"status\":\"error\", \"data\": \"The bill has already been paid\"}";
                 }
 
             }
@@ -63,7 +63,7 @@ public class PaymentService {
             }
 
             try {
-                output = "<table border='1'><tr><th>Payment ID</th>" + "<th>Payment Method</th><th>Reference ID</th>"+ "<th>Amount</th>" + "<th>Payment Date</th>" + "<th>Customer Name</th>" + "<th>Customer Account ID</th>" + "<th>Bill ID</th>";
+                output = "<table class='table table-dark'><thead><tr><th>Payment ID</th>" + "<th>Payment Method</th><th>Reference ID</th>"+ "<th>Amount</th>" + "<th>Payment Date</th>" + "<th>Customer Name</th>" + "<th>Customer Account ID</th>" + "<th>Bill ID</th>  </thead>  <tbody>";
 
                 String query = "SELECT p.id AS paymentId, p.method, p.refId, p.amount, p.date AS paymentdate, c.name, c.accountId, b.id AS billId FROM payment p LEFT JOIN bill b ON p.id = b.payment_id INNER JOIN customer c ON b.customer_id = c.id";
                 Statement statement = connection.createStatement();
@@ -92,11 +92,12 @@ public class PaymentService {
                     output += "<td>" + customer.getName() + "</td>";
                     output += "<td>" + customer.getAccountId() + "</td>";
                     output += "<td>" + bill.getId() + "</td>";
+                    output += "<td><input name='btnDelete' type='button' value='Delete' class='btnDelete btn btn-danger' data-payid='" + payment.getId() + "'></td>";
                 }
 
                 statement.close();
                 connection.close();
-                output += "</table>";
+                output += "</tbody></table>";
 
 
             } catch (SQLException e) {
