@@ -5,7 +5,7 @@ $(document).ready(function () {
 });
 
 
-
+// Create payment
 $(document).on("click", "#btnPay", function (event) {
     // Clear alerts---------------------
     $("#alertSuccess").text("");
@@ -26,27 +26,7 @@ $(document).on("click", "#btnPay", function (event) {
         });
 });
 
-$(document).on("click", "#btnDelete", function (event) {
-    // Clear alerts---------------------
-    $("#alertSuccessDEL").text("");
-    $("#alertSuccessDEL").hide();
-    $("#alertErrorDEL").text("");
-    $("#alertErrorDEL").hide();
-
-
-    $.ajax(
-        {
-            url: "payment",
-            type: "DELETE",
-            data: $("#formPayment").serialize(),
-            dataType: "text",
-            complete: function (response, status) {
-                onPaymentResult(response, status)
-            }
-        });
-});
-
-
+//Delete payment
 $(document).on("click", ".btnDelete", function(event)
 {
     $.ajax(
